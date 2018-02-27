@@ -34,7 +34,8 @@ function getdata(){
 
 
 function addtofav (src,ttl,desc){
-	alert(src);
-	alert(ttl);
-	alert(desc);
+	var xmlHttp = new XMLHttpRequest();
+	var url="http://localhost:8081/newsroom/MainServlet?source="+src+"&title="+ttl+"&description="+desc;
+	xmlHttp.open("GET",url, true);
+    xmlHttp.send();
 }
