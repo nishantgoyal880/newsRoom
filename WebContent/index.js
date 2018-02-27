@@ -21,8 +21,8 @@ function getdata(){
             for (i = 0; i < myArr.articles.length; i++) {
                 var html_code = "<b>Source</b> : "+myArr.articles[i].source.name+"</br> <b>Title</b> : "+myArr.articles[i].title+
                 "</br> <b>Description</b> : "+myArr.articles[i].description+ 
-                "</br><button id =\"button"+i+"\" onClick=\"addtofav("+myArr.articles[i].source.name+
-                ","+myArr.articles[i].title+","+myArr.articles[i].description+")\">Add to favourite</button>"+
+                "</br>"+'<button onClick="addtofav(\'' + myArr.articles[i].source.name +'\',\''+
+                myArr.articles[i].title+'\',\''+myArr.articles[i].description+'\')">Add To Fav</button>'+
                 " </br> </br> ";
                 document.getElementById('content').insertAdjacentHTML('afterend', html_code);
             }
@@ -33,4 +33,8 @@ function getdata(){
  }
 
 
-function 
+function addtofav (src,ttl,desc){
+	alert(src);
+	alert(ttl);
+	alert(desc);
+}
