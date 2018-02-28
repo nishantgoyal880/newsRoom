@@ -38,4 +38,38 @@ function addtofav (src,ttl,desc){
 	var url="http://localhost:8081/newsroom/MainServlet?source="+src+"&title="+ttl+"&description="+desc;
 	xmlHttp.open("GET",url, true);
     xmlHttp.send();
+    
+    xmlHttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            var myArr=this.responseText;
+            document.getElementById("response").innerHTML=myArr;
+        }
+    }
 }
+
+function getfav(){
+	var xmlHttp = new XMLHttpRequest();
+	var url="http://localhost:8081/newsroom/FavList?id=work";
+	xmlHttp.open("GET",url, true);
+    xmlHttp.send();
+    
+    
+    xmlHttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+        	alert("inside");
+        	var myArr= this.responseText;
+        	alert(myArr);
+        }
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+

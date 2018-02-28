@@ -20,8 +20,9 @@ public class MainServlet extends HttpServlet {
 	String source=null;
 	String title=null;
 	String description=null;
-	JSONObject json=new JSONObject();
-	ArrayList<String> data=new ArrayList<String>();
+    JSONObject json=new JSONObject();
+	HashMap<String,String> data=new HashMap<String,String>();
+	static Integer count=1;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -37,31 +38,45 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int i=0;
+		
 		source=request.getParameter("source");
 		title=request.getParameter("title");
 		description=request.getParameter("description");
-		data.add(source);
-		data.add(title);
-		data.add(description);
-		json.put(i++,data);
+		data.put("source",source);
+		data.put("title",title);
+		data.put("description",description);
 		
-		
-		try {  
+		if (count < 10) {
+			json.put(count++, data);
+			System.out.println(json.get(count - 1));
 
-            // Writing to a file  
-            File file=new File("http://localhost:8081/newsroom/WebContent/WEB-INF/favrt.json");  
-            file.createNewFile();  
-            FileWriter fileWriter = new FileWriter(file);  
-          
-            fileWriter.write(json.toJSONString());  
-            fileWriter.flush();  
-            fileWriter.close();  
+			try {
 
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-		
+				// Writing to a file
+				File file = new File("/home/sapient/Documents/workspace-sts-3.9.2.RELEASE/newsroom/favrt.json");
+
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+				FileWriter fileWriter = new FileWriter(file, true);
+
+				fileWriter.write(json.toJSONString());
+				fileWriter.flush();
+				fileWriter.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			response.setContentType("text/plain");  
+		    response.setCharacterEncoding("UTF-8"); 
+		    response.getWriter().write("Data Added");       
+
+		} else {
+			response.setContentType("text/plain");  
+		    response.setCharacterEncoding("UTF-8"); 
+		    response.getWriter().write("Limit Exceeded");     
+		}
 		
 	}
 

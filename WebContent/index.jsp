@@ -9,9 +9,12 @@
 <body>
 	
 	<input type="text" id="data"></input>
+	<div id="response"></div>
 	<button onclick="getdata()">SEARCH</button>
+	<button onclick="getfav()">Watch Favourites</button>
 	<script type="text/javascript" src="index.js"></script>
     <p id="content"></p>
+    
 	
 </body>
 </html>
