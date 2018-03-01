@@ -1,11 +1,8 @@
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +17,9 @@ import org.json.simple.parser.JSONParser;
  */
 @WebServlet("/FavList")
 public class FavList extends HttpServlet {
+	
+	
+	
 	private static final long serialVersionUID = 1L;
        
     /**

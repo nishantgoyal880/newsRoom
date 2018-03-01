@@ -1,6 +1,7 @@
 /**
  * 
  */
+var myArr;
 
 function getdata(){
 	var search=document.getElementById("data").value;
@@ -11,8 +12,8 @@ function getdata(){
     xmlHttp.send();
     xmlHttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            var myArr= JSON.parse(this.responseText);
-            var dataObj= JSON.stringify(myArr);
+            myArr= JSON.parse(this.responseText);
+           
      
             
             
@@ -21,8 +22,7 @@ function getdata(){
             for (i = 0; i < myArr.articles.length; i++) {
                 var html_code = "<b>Source</b> : "+myArr.articles[i].source.name+"</br> <b>Title</b> : "+myArr.articles[i].title+
                 "</br> <b>Description</b> : "+myArr.articles[i].description+ 
-                "</br>"+'<button onClick="addtofav(\'' + myArr.articles[i].source.name +'\',\''+
-                myArr.articles[i].title+'\',\''+myArr.articles[i].description+'\')">Add To Fav</button>'+
+                "</br>"+'<button onClick="addtofav('+i+')">Add To Fav</button>'+
                 " </br> </br> ";
                 document.getElementById('content').insertAdjacentHTML('afterend', html_code);
             }
@@ -33,9 +33,10 @@ function getdata(){
  }
 
 
-function addtofav (src,ttl,desc){
+function addtofav (i){
 	var xmlHttp = new XMLHttpRequest();
-	var url="http://localhost:8081/newsroom/MainServlet?source="+src+"&title="+ttl+"&description="+desc;
+	var stringVal="source="+myArr.articles[i].source.name+"&title="+myArr.articles[i].title+"&description="+myArr.articles[i].description;
+	var url="http://localhost:8081/newsroom/MainServlet?"+stringVal;
 	xmlHttp.open("GET",url, true);
     xmlHttp.send();
     
@@ -62,15 +63,6 @@ function getfav(){
             alert(dataObj);
         }
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 
