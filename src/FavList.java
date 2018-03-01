@@ -1,5 +1,6 @@
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,14 +37,18 @@ public class FavList extends HttpServlet {
 		// TODO Auto-generated method stub
 		JSONParser parser = new JSONParser();
 		
-		try {     
-            Object obj = parser.parse(new FileReader("/home/sapient/Documents/workspace-sts-3.9.2.RELEASE/newsroom/favrt.json"));
-
-            JSONObject jsonObject =  (JSONObject) obj;
+		try {   
+			FileReader data=new FileReader("/home/sapient/Documents/workspace-sts-3.9.2.RELEASE/newsroom/favrt.json");
+			
+			Object obj=parser.parse(data);
+			JSONObject json=(JSONObject)obj;
+			System.out.println(json);
+           
             
+         
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("hello");
+            response.getWriter().write(json.toString());
             
             
             

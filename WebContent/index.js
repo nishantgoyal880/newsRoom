@@ -57,8 +57,9 @@ function getfav(){
     xmlHttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
         	alert("inside");
-        	var myArr= this.responseText;
-        	alert(myArr);
+        	var myArr= JSON.parse(this.responseText);
+            var dataObj= JSON.stringify(myArr);
+            alert(dataObj);
         }
     }
 	
