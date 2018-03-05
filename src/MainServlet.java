@@ -45,7 +45,7 @@ public class MainServlet extends HttpServlet {
 
 	
 
-		if (count < 10) {
+		
 			
 			JSONParser parser = new JSONParser();
 			
@@ -60,6 +60,8 @@ public class MainServlet extends HttpServlet {
 
 				e.printStackTrace();
 			}
+			
+		if (count < 10) {	
 
 			try {
 				count++;

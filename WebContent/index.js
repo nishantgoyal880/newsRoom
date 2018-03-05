@@ -3,6 +3,7 @@
  */
 var myArr;
 
+//Retrieving data from the api
 function getdata(){
 	var search=document.getElementById("data").value;
 	var xmlHttp = new XMLHttpRequest();
@@ -12,27 +13,32 @@ function getdata(){
     xmlHttp.send();
     xmlHttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            myArr= JSON.parse(this.responseText);
-           
-     
+           myArr= JSON.parse(this.responseText);
+           var x="";
             
-            
-            
-            
-            for (i = 0; i < myArr.articles.length; i++) {
-                var html_code = "<b>Source</b> : "+myArr.articles[i].source.name+"</br> <b>Title</b> : "+myArr.articles[i].title+
-                "</br> <b>Description</b> : "+myArr.articles[i].description+ 
-                "</br>"+'<button onClick="addtofav('+i+')">Add To Fav</button>'+
-                " </br> </br> ";
-                document.getElementById('content').insertAdjacentHTML('afterend', html_code);
-            }
-        
-            
-        }
+	    	for(var i=0;i<myArr.articles.length;i++){
+	    	   x+=`
+	    		<div class="card">
+	    		<div class="card-block">
+	    		<h4 class="card-title">${myArr.articles[i].title}</h4>
+	    		<p class="card-text">${myArr.articles[i].source.name}<br>
+	    		${myArr.articles[i].description}<br>
+	    		</p>
+	    		<button type="button" onclick="addtofav('${i}')">ADD TO FAV</button>
+	    		<p id=para></p>
+	    		</div>
+	    		</div>
+	    		`;
+	    	   	
+	    		}
+	    	document.getElementById('mynews').innerHTML=x;
+	    	}     
+
+    
     };
  }
 
-
+//Adding favourites to the list
 function addtofav (i){
 	var xmlHttp = new XMLHttpRequest();
 	var stringVal="source="+myArr.articles[i].source.name+"&title="+myArr.articles[i].title+"&description="+myArr.articles[i].description;
@@ -42,12 +48,14 @@ function addtofav (i){
     
     xmlHttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            var myArr=this.responseText;
-            document.getElementById("response").innerHTML=myArr;
+            alert(this.responseText);
+            
         }
-    }
+    };
 }
 
+
+//Getting list of favourites
 function getfav(){
 	var xmlHttp = new XMLHttpRequest();
 	var url="http://localhost:8081/newsroom/FavList?id=work";
@@ -57,12 +65,44 @@ function getfav(){
     
     xmlHttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-        	alert("inside");
-        	var myArr= JSON.parse(this.responseText);
-            var dataObj= JSON.stringify(myArr);
-            alert(dataObj);
+        	var myjson= JSON.parse(this.responseText);
+            
+        	var x="";
+            
+	    	for(var i=0;i<myjson.news.length;i++){
+	    	   x+=`
+	    		<div class="card">
+	    		<div class="card-block">
+	    		<h4 class="card-title">${myjson.news[i].title}</h4>
+	    		<p class="card-text">${myjson.news[i].name}<br>
+	    		${myjson.news[i].description}<br>
+	    		</p>
+	    		<button type="button" onclick="remove('${i}')">REMOVE</button>
+	    		<p id=para></p>
+	    		</div>
+	    		</div>
+	    		`;
+	    	   	
+	    		}
+	    	document.getElementById('mynews').innerHTML=x;
+	    	     
+
+            
         }
-    }
+    };
 }
 
-
+//Removing element from the favourite list
+function remove(i){
+	
+	var xmlHttp = new XMLHttpRequest();
+	var url="http://localhost:8081/newsroom/RemoveClass?id="+i;
+	xmlHttp.open("GET",url, true);
+    xmlHttp.send();
+    
+    xmlHttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+        	alert(this.responseText);
+        }
+    };
+}
