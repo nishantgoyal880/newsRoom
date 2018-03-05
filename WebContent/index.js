@@ -18,7 +18,7 @@ function getdata(){
             
 	    	for(var i=0;i<myArr.articles.length;i++){
 	    	   x+=`
-	    		<div class="card">
+	    		<div class="card" style="width:1000px;">
 	    		<div class="card-block">
 	    		<h4 class="card-title">${myArr.articles[i].title}</h4>
 	    		<p class="card-text">${myArr.articles[i].source.name}<br>
@@ -71,7 +71,7 @@ function getfav(){
             
 	    	for(var i=0;i<myjson.news.length;i++){
 	    	   x+=`
-	    		<div class="card">
+	    		<div class="card" style="width:1000px;">
 	    		<div class="card-block">
 	    		<h4 class="card-title">${myjson.news[i].title}</h4>
 	    		<p class="card-text">${myjson.news[i].name}<br>
